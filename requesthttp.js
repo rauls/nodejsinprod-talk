@@ -15,23 +15,31 @@ function callSecureApi(url, timer) {
 
 }
 
-setInterval(function monitor() {
+exports.BeginTimer = function() {
+	return new Hoek.Timer();
+}
 
-  	var memory = process.memoryUsage();
+exports.RecordTimer = function(name,timer) {
+  	client.timing( name, timer.elapsed() );
+}
 
-  	client.gauge('node.http.gauge.process.rss', memory.rss);
-	client.gauge('node.http.gauge.process.heapTotal', memory.heapTotal);
-	client.gauge('node.http.gauge.process.heapUsed', memory.heapUsed);
+exports.RecordValue = function(name,value) {
+  	client.gauge( name, value );
+}
 
-	eventDelay(function(err, timetaken){
-		client.timing('node.http.timer.event_loop_delay', timetaken);
-	});
+exports.init = function() {
 
-}, 500);
+	setInterval(function monitor() {
+	  	var memory = process.memoryUsage();
 
-setInterval(function requestor() {
+	  	client.gauge('node.http.gauge.process.rss', memory.rss);
+		client.gauge('node.http.gauge.process.heapTotal', memory.heapTotal);
+		client.gauge('node.http.gauge.process.heapUsed', memory.heapUsed);
 
-	var timer = new Hoek.Timer();
-	callSecureApi('http://localhost:3080', timer)
+		eventDelay(function(err, timetaken){
+			client.timing('node.http.timer.event_loop_delay', timetaken);
+		});
 
-}, 500);
+	}, 500);
+
+}

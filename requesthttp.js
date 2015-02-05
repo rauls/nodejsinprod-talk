@@ -1,7 +1,7 @@
 var request = require('request');
 var Hoek = require('hoek');
 var StatsD = require('node-statsd').StatsD;
-var client = new StatsD();
+var client = new StatsD( { host: "linux-box" });
 var eventDelay = require('./delay');
 
 

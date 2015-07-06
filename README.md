@@ -76,6 +76,6 @@ python -m SimpleHTTPServer
 
 Load up [http://linux-box:8000/#/dashboard/file/NodeJS.json](http://linux-box:8000/#/dashboard/file/NodeJS.json).
 
-I cannot assume you have your browser running in the linux box, so I will assume you are in a widnows desktop, SSHed into your linux server.
+I cannot assume you have your browser running in the linux box, so I will assume you are in a windows desktop, SSHed into your linux server.
 
 
